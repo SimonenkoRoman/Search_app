@@ -6,34 +6,21 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($http, $stateParams) {
     var vm = this;
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1471980835735;
-    vm.showToastr = showToastr;
+    vm.search = [];     /*массив пользователей*/
 
-    activate();
+    vm.submit=function() {          
+$http.get("https://api.github.com/search/users?q=" + vm.search + "+repos:%3E42+followers:%3E1000&per_page=5")
+        .then(function(response) { vm.users = response.data.items })
+        .catch(function(error) {console.log(error)})
+     }
+vm.onchange = function() {
+  
+console.log(vm.search);
 
-    function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
-    }
-
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
-
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
-    }
+}
+  
   }
 })();

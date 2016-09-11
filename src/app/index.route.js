@@ -13,7 +13,14 @@
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'main'
-      });
+      })
+      .state('user', {
+        url: '/user/:username',
+        templateUrl: 'app/users/user.html',
+        controller: 'UserController',
+        controllerAs: 'user'
+      })
+      ;
 
     $urlRouterProvider.otherwise('/');
   }
