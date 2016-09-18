@@ -9,19 +9,15 @@
   function UserController($http, $stateParams) {
     var us = this;
 
-    us.load=function() { 
-$http.get("https://api.github.com/search/users/" + $stateParams.username)
-        .then(function(response) { us.user = response.data.items })
+    $http.get("https://api.github.com/users/" + $stateParams.username)
+        .then(function(response) { us.user = response.data })
         .catch(function(error) {console.log(error)})
 
-$http.get("https://api.github.com/search/users/" + $stateParams.username + "/repos")
-        .then(function(response) { us.user = response.data.items })
+    $http.get("https://api.github.com/users/" + $stateParams.username + "/repos")
+        .then(function(response) { us.repos = response.data })
         .catch(function(error) {console.log(error)})
-     }
-
-// .get($stateParams.username)         
+  
+console.log($stateParams.username);
+ 
 }
-
-
-// us.load();
 })();

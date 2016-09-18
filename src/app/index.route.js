@@ -19,6 +19,11 @@
         templateUrl: 'app/users/user.html',
         controller: 'UserController',
         controllerAs: 'user'
+    //     resolve: {
+    //       messages: function (InboxService) {
+    //       return InboxService.getMessages();
+    //   }
+    // }
       })
       ;
 
